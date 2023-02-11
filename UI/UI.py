@@ -3,61 +3,45 @@ import shutil
 from msvcrt import getch
 
 class UI:
-    def __init__(dir):
-        banner = """
- ___                                 ___            ___                                                
-(   )                               (   )          (   )                                               
- | |.-.    ___  ___   ___ .-.     .-.| |    .---.   | |.-.     .--.    ___ .-.      .--.               
- | /   \  (   )(   ) (   )   \   /   \ |   / .-, \  | /   \   /    \  (   )   \    /    \              
- |  .-. |  | |  | |   |  .-. .  |  .-. |  (__) ; |  |  .-. | |  .-. ;  | ' .-. ;  ;  ,-. '             
- | |  | |  | |  | |   | |  | |  | |  | |    .'`  |  | |  | | |  | | |  |  / (___) | |  | |             
- | |  | |  | |  | |   | |  | |  | |  | |   / .'| |  | |  | | |  |/  |  | |        | |  | |             
- | |  | |  | |  | |   | |  | |  | |  | |  | /  | |  | |  | | |  ' _.'  | |        | |  | |             
- | '  | |  | |  ; '   | |  | |  | '  | |  ; |  ; |  | '  | | |  .'.-.  | |        | '  | |             
- ' `-' ;   ' `-'  /   | |  | |  ' `-'  /  ' `-'  |  ' `-' ;  '  `-' /  | |        '  `-' |             
-  `.__.     '.__.'   (___)(___)  `.__,'   `.__.'_.   `.__.    `.__.'  (___)        `.__. |             
-                                                                                   ( `-' ;             
-                                                                                    `.__.              
-                          ___                  ___                                                     
-                         (   )  .-.           (   )                                                    
- ___ .-.      .---.    .-.| |  ( __)   .--.    | |    .--.     .--.    ___  ___                        
-(   )   \    / .-, \  /   \ |  (''")  /    \   | |   /    \   /    \  (   )(   )                       
- | ' .-. ;  (__) ; | |  .-. |   | |  |  .-. ;  | |  |  .-. ; ;  ,-. '  | |  | |                        
- |  / (___)   .'`  | | |  | |   | |  | |  | |  | |  | |  | | | |  | |  | |  | |                        
- | |         / .'| | | |  | |   | |  | |  | |  | |  | |  | | | |  | |  | '  | |                        
- | |        | /  | | | |  | |   | |  | |  | |  | |  | |  | | | |  | |  '  `-' |                        
- | |        ; |  ; | | '  | |   | |  | '  | |  | |  | '  | | | '  | |   `.__. |                        
- | |        ' `-'  | ' `-'  /   | |  '  `-' /  | |  '  `-' / '  `-' |   ___ | |                        
-(___)       `.__.'_.  `.__,'   (___)  `.__.'  (___)  `.__.'   `.__. |  (   )' |                        
-                                                              ( `-' ;   ; `-' '                        
-                                                               `.__.     .__.'                         
-        """
-        print(banner)
+    def __init__(self, dir):
+        f = open('banner', 'r')
+        self.banner = f.read()
         try:
             shutil.copytree(os.path.join(dir, "Data", "template"), os.path.join(dir, "Data", "Sam"))
         except FileExistsError:
             print("Directory Exists")
             
-    def mainMenu():
+    def mainMenu(self):
         options = ["next", "back"]
-        for option in options:
-            print("<○>", "⠀" + option)
-        index1 = 0
-        index2 = 0
-        while index1 == 0:
-            while index2 == 0:
-                key = ord(getch())
-                if key == 13:
-                    print("enter")
-                elif key == 72:
-                    print("up")
-                elif key == 80:
-                    print("down")
-                elif key == 75:
-                    print("left")
-                elif key == 77:
-                    print("right")
-                
-                
+        selection = 0
+        self.printOptions(self, options, selection)
+        while True:
+            key = ord(getch())
+            # * Enter key
+            if key == 13:
+                break
+            elif key == 72:
+                print("up")
+                selection -= 1
+                self.printOptions(self, options, selection)
+            elif key == 80:
+                print("down")
+                selection += 1
+                self.printOptions(self, options, selection)
+            # elif key == 75:
+            #     print("left")
+            #     self.printOptions(self, options, selection)
+            # elif key == 77:
+            #     print("right")
+            #     self.printOptions(self, options, selection)
+            
+    def printOptions(self, options, selection):
+        os.system("cls")
+        print('\x1b[1;130;44m', self.banner, '\x1b[0m')
+        for option in range(len(options)):
+            if selection == option:
+                print('\x1b[6;30;42m', "<•>", options[option], '\x1b[0m')
+            else:
+                print("<○>", options[option])
         
             

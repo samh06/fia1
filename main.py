@@ -8,8 +8,8 @@ def main():
         exit()
     dir_path = os.path.dirname(os.path.realpath(__file__))
     Interface = UI
-    Interface.__init__(dir_path)
-    Interface.mainMenu()
+    Interface.__init__(Interface, dir_path)
+    Interface.mainMenu(Interface)
 
 if __name__ == "__main__":
     main()
