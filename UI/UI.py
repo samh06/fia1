@@ -1,2 +1,3 @@
 class UI:
-    pass
+    def __init__():
+        print("UI")
