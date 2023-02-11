@@ -1,9 +1,15 @@
 from UI import UI
 import os
+from sys import platform
     
 def main():
+    if platform != "win32":
+        print("This program only runs on windows operatins sstems")
+        exit()
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    UI.__init__(dir_path)
+    Interface = UI
+    Interface.__init__(dir_path)
+    Interface.mainMenu()
 
 if __name__ == "__main__":
     main()
