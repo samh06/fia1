@@ -40,7 +40,7 @@ class UI:
         print('\x1b[1;130;44m', self.banner, '\x1b[0m')
         for option in range(len(options)):
             if selection == option:
-                print('\x1b[6;30;42m', "<•>", options[option], '\x1b[0m')
+                print('\x1b[6;30;42m' + "<•>", options[option], '\x1b[0m')
             else:
                 print("<○>", options[option])
         
