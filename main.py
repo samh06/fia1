@@ -2,15 +2,10 @@ from UI import UI
 import os
 from sys import platform, version_info
 
-# * Minimum Python version
-MIN_PYTHON = (3, 10)
-
 def main():
-    # * Platform and Python Version checks.
-    if platform != "win32":
-        exit("This program only runs on windows operatins sstems")
-    if version_info < MIN_PYTHON:
-        exit("Python %s.%s or later is required.\n" % MIN_PYTHON)
+    # * Python Version checks.
+    if version_info < (3, 10):
+        exit("Python %s.%s or later is required.\n" % (3, 10))
     
     # * Get directory to pass to UI for copying files
     dir_path = os.path.dirname(os.path.realpath(__file__))
